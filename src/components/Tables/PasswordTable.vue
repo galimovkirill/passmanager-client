@@ -1,19 +1,21 @@
 <template>
   <v-card>
-    <!--    <v-card-title>-->
-    <!--      <v-text-field-->
-    <!--        v-model="search"-->
-    <!--        append-icon="mdi-magnify"-->
-    <!--        label="Поиск"-->
-    <!--        single-line-->
-    <!--        hide-details-->
-    <!--      ></v-text-field>-->
-    <!--    </v-card-title>-->
-    <v-data-table
-      :headers="headers"
-      :items="data"
-      :search="search"
-    ></v-data-table>
+    <v-data-table :headers="headers" :items="data" :search="search">
+      <template v-slot:item.index="{ index }">{{ index + 1 }}</template>
+      <template v-slot:item.date="{ item }">
+        {{ item.date | moment("DD.MM.YYYY, HH:mm:ss") }}
+      </template>
+      <template v-slot:item.url="{ item }">
+        <div @click="openLink(item.url)" class="table-url">{{ item.url }}</div>
+      </template>
+      <template v-slot:item.actions="{ item, index }">
+        <v-icon small class="mr-2" @click="test"> mdi-pencil </v-icon>
+        <v-icon small @click="deleteItem(item, index)"> mdi-delete </v-icon>
+      </template>
+      <template v-slot:item.more>
+        <v-btn depressed color="primary" x-small>Подбронее</v-btn>
+      </template>
+    </v-data-table>
   </v-card>
 </template>
 
@@ -25,15 +27,35 @@ export default {
     return {
       search: "",
       headers: [
+        { text: "№", value: "index" },
         { text: "Название", value: "name" },
         { text: "Логин", value: "login" },
         { text: "Пароль", value: "password" },
         { text: "URL", value: "url" },
-        { text: "Описание", value: "description" },
         { text: "Дата добавления", value: "date" },
+        { text: "Действия", value: "actions", sortable: false },
+        { text: "", value: "more", sortable: false },
       ],
       data: [],
     };
+  },
+  methods: {
+    test() {
+      console.log("test");
+    },
+    deleteItem(item, index) {
+      const sure = confirm("Вы уверены, что хотите удалить эту запись?");
+      if (sure) {
+        api.deleteNote(item._id).then(() => {
+          this.data.splice(index, 1);
+        });
+      }
+    },
+    openLink(url) {
+      url = url.match(/^http[s]?:\/\//) ? url : "http://" + url;
+      console.log(url);
+      window.open(url);
+    },
   },
   mounted() {
     api.getNotes().then((res) => {
@@ -43,4 +65,8 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.table-url {
+  cursor: pointer;
+}
+</style>

@@ -7,4 +7,7 @@ export default {
   createNote(data) {
     return http.post("/notes", data);
   },
+  deleteNote(id) {
+    return http.delete(`/notes/${id}`);
+  },
 };

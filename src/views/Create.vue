@@ -11,7 +11,11 @@
         <v-text-field v-model="login" label="Логин" required></v-text-field>
         <v-text-field v-model="password" label="Пароль" required></v-text-field>
         <v-text-field v-model="url" label="URL адрес"></v-text-field>
-        <v-text-field v-model="description" label="Описание"></v-text-field>
+        <v-textarea
+          name="input-7-1"
+          v-model="description"
+          label="Описание"
+        ></v-textarea>
         <v-btn
           class="ma-2"
           :loading="loading"
