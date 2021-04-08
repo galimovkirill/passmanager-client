@@ -9,11 +9,15 @@
         <div @click="openLink(item.url)" class="table-url">{{ item.url }}</div>
       </template>
       <template v-slot:item.actions="{ item, index }">
-        <v-icon small class="mr-2" @click="test"> mdi-pencil </v-icon>
+        <router-link :to="{ path: 'edit', query: { id: item._id } }">
+          <v-icon small class="mr-2"> mdi-pencil </v-icon>
+        </router-link>
         <v-icon small @click="deleteItem(item, index)"> mdi-delete </v-icon>
       </template>
-      <template v-slot:item.more>
-        <v-btn depressed color="primary" x-small>Подбронее</v-btn>
+      <template v-slot:item.more="{ item }">
+        <router-link :to="{ path: 'note', query: { id: item._id } }">
+          <v-btn depressed color="primary" x-small>Подбронее</v-btn>
+        </router-link>
       </template>
     </v-data-table>
   </v-card>
@@ -40,9 +44,6 @@ export default {
     };
   },
   methods: {
-    test() {
-      console.log("test");
-    },
     deleteItem(item, index) {
       const sure = confirm("Вы уверены, что хотите удалить эту запись?");
       if (sure) {

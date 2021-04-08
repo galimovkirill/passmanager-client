@@ -14,9 +14,20 @@ const routes = [
     name: "Create",
     component: () => import("../views/Create"),
   },
+  {
+    path: "/edit",
+    name: "Edit",
+    component: () => import("../views/Edit"),
+  },
+  {
+    path: "/note",
+    name: "Note",
+    component: () => import("../views/Note"),
+  },
 ];
 
 const router = new VueRouter({
+  mode: "history",
   routes,
 });
 
