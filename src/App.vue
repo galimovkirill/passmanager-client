@@ -19,7 +19,5 @@ export default {
 </script>
 
 <style lang="scss">
-a {
-  text-decoration: none;
-}
+@import "~@/assets/styles/main.scss";
 </style>

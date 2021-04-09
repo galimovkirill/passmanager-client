@@ -1,0 +1,13 @@
+a {
+  text-decoration: none;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  &__item {
+    &:not(:last-child) {
+      margin-bottom: 2rem;
+    }
+  }
+}

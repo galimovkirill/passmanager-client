@@ -1,29 +1,29 @@
 <template>
-  <div>
+  <div class="note-page">
     <v-container>
       <div class="grid-wrapper">
         <div class="content">
-          <pre>{{ note }}</pre>
+          <div>
+            <h1>{{ note.name }}</h1>
+          </div>
         </div>
         <div class="sidebar">
-          <div class="sidebar__item log">
-            <div class="log-wrapper">
-              <span>This is logs</span>
-            </div>
-          </div>
-          <div class="sidebar__item">
-            <span>Another block</span>
-          </div>
+          <the-logs class="sidebar__item" />
         </div>
       </div>
+      <pre>{{ note }}</pre>
     </v-container>
   </div>
 </template>
 
 <script>
+import TheLogs from "@/components/Logs/TheLogs";
 import api from "@/assets/js/api";
 
 export default {
+  components: {
+    TheLogs,
+  },
   data() {
     return {
       note: null,
@@ -37,22 +37,17 @@ export default {
 </script>
 
 <style lang="scss">
-.grid-wrapper {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 2rem;
-}
-
-.content {
-}
-
-.sidebar {
-  display: flex;
-  flex-direction: column;
-  &__item {
-    &:not(:last-child) {
-      margin-bottom: 2rem;
-    }
+.note-page {
+  .grid-wrapper {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+  }
+  .content {
+    background: $c-gray-50;
+    border: 1px solid $c-gray-100;
+    border-radius: 4px;
+    padding: 2rem;
   }
 }
 </style>
