@@ -1,5 +1,5 @@
 <template>
-  <div class="note-page">
+  <div v-if="note" class="note-page">
     <v-container>
       <div class="grid-wrapper">
         <div class="content">
