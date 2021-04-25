@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-data-table :headers="headers" :items="data" :search="search">
+    <v-data-table :headers="headers" :items="notes" :search="search">
       <template v-slot:item.index="{ index }">
         {{ index + 1 }}
       </template>
@@ -51,8 +51,6 @@
 </template>
 
 <script>
-import api from "@/assets/js/api/api";
-
 export default {
   data() {
     return {
@@ -67,28 +65,23 @@ export default {
         { text: "", value: "actions", sortable: false },
         { text: "", value: "more", sortable: false },
       ],
-      data: [],
     };
   },
   methods: {
     deleteItem(item, index) {
       const sure = confirm("Вы уверены, что хотите удалить эту запись?");
       if (sure) {
-        api.deleteNote(item._id).then(() => {
-          this.data.splice(index, 1);
-        });
+        this.$store.dispatch("note/deleteNote", { id: item._id, index });
       }
-    },
-    openLink(url) {
-      url = url.match(/^http[s]?:\/\//) ? url : "http://" + url;
-      console.log(url);
-      window.open(url);
     },
   },
   mounted() {
-    api.getNotes().then((res) => {
-      this.data = res.data;
-    });
+    this.$store.dispatch("note/fetchNotes");
+  },
+  computed: {
+    notes() {
+      return this.$store.getters["note/getNotes"];
+    },
   },
 };
 </script>

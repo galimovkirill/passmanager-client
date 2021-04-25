@@ -55,7 +55,6 @@
 </template>
 
 <script>
-import api from "@/assets/js/api/api";
 export default {
   data() {
     return {
@@ -95,20 +94,14 @@ export default {
   methods: {
     createNote() {
       this.loading = true;
-      api
-        .createNote(this.noteData)
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err))
-        .finally(() => {
-          this.loading = false;
-        });
+      this.$store.dispatch("note/createNote", this.noteData).finally(() => {
+        this.loading = false;
+      });
     },
     updateNote() {
       this.loading = true;
-      api
-        .updateNote(this.$route.query.id, this.noteData)
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err))
+      this.$store
+        .dispatch("note/updateNote", [this.$route.query.id, this.noteData])
         .finally(() => {
           this.loading = false;
         });

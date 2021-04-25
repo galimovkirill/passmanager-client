@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import api from "@/assets/js/api/api";
 import NoteDataForm from "@/components/Forms/NoteDataForm";
 
 export default {
@@ -17,17 +16,11 @@ export default {
       note: null,
     };
   },
-  mounted() {
-    const noteId = this.$route.query.id;
-    if (!noteId) {
-      this.$router.push("/");
-      return 0;
-    }
-
-    api.getNote(noteId).then((res) => {
-      console.log(res);
-      this.note = res.data;
-    });
+  async mounted() {
+    this.note = await this.$store.dispatch(
+      "note/fetchNote",
+      this.$route.query.id
+    );
   },
 };
 </script>

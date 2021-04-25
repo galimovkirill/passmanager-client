@@ -18,7 +18,6 @@
 
 <script>
 import TheLogs from "@/components/Logs/TheLogs";
-import api from "@/assets/js/api/api";
 
 export default {
   components: {
@@ -29,9 +28,11 @@ export default {
       note: null,
     };
   },
-  mounted() {
-    const id = this.$route.query.id;
-    api.getNote(id).then((res) => (this.note = res.data));
+  async mounted() {
+    this.note = await this.$store.dispatch(
+      "note/fetchNote",
+      this.$route.query.id
+    );
   },
 };
 </script>

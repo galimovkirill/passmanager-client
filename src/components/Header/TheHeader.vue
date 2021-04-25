@@ -9,6 +9,9 @@
     <v-btn class="ma-2" outlined color="white" to="/create">
       Добавить пароль
     </v-btn>
+    <v-btn class="ma-2" outlined color="white" to="/users">
+      Пользователи
+    </v-btn>
     <v-btn class="ma-2" outlined color="white" @click="logout">Выйти</v-btn>
   </v-app-bar>
 </template>

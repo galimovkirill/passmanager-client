@@ -21,5 +21,10 @@ export default {
         position: "bottom-right",
       });
     },
+
+    openLink(url) {
+      url = url.match(/^http[s]?:\/\//) ? url : "http://" + url;
+      window.open(url);
+    },
   },
 };
