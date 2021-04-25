@@ -3,7 +3,7 @@
     <div class="login-form">
       <h1>Войти в аккаунт</h1>
       <div class="login-form-group">
-        <v-text-field v-model="email" label="Email"></v-text-field>
+        <v-text-field v-model="username" label="Логин"></v-text-field>
         <v-text-field v-model="password" label="Пароль"></v-text-field>
         <v-btn depressed color="primary" @click="loginUser">Войти</v-btn>
       </div>
@@ -14,13 +14,13 @@
 <script>
 export default {
   data: () => ({
-    email: "",
+    username: "",
     password: "",
   }),
   methods: {
     loginUser() {
-      const { email, password } = this;
-      const data = { email, password };
+      const { username, password } = this;
+      const data = { username, password };
       this.$store.dispatch("user/loginUser", data);
     },
   },

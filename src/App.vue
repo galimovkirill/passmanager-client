@@ -1,6 +1,8 @@
 <template>
-  <default-layout v-if="isAuthorized" />
-  <unauthorized-layout v-else />
+  <div>
+    <default-layout v-if="isAuthorized" />
+    <unauthorized-layout v-else />
+  </div>
 </template>
 
 <script>

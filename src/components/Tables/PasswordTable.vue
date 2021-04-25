@@ -31,7 +31,10 @@
         <div @click="openLink(item.url)" class="table-url">{{ item.url }}</div>
       </template>
 
-      <template v-slot:item.actions="{ item, index }">
+      <template
+        v-if="$store.getters['user/getUserAdminStatus']"
+        v-slot:item.actions="{ item, index }"
+      >
         <router-link :to="{ path: 'edit', query: { id: item._id } }">
           <v-icon small class="mr-2"> mdi-pencil </v-icon>
         </router-link>
@@ -61,7 +64,7 @@ export default {
         { text: "Пароль", value: "password" },
         { text: "URL", value: "url" },
         { text: "Дата добавления", value: "date" },
-        { text: "Действия", value: "actions", sortable: false },
+        { text: "", value: "actions", sortable: false },
         { text: "", value: "more", sortable: false },
       ],
       data: [],
