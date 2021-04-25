@@ -18,7 +18,7 @@
 
 <script>
 import TheLogs from "@/components/Logs/TheLogs";
-import api from "@/assets/js/api";
+import api from "@/assets/js/api/api";
 
 export default {
   components: {

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import api from "@/assets/js/api";
+import api from "@/assets/js/api/api";
 import NoteDataForm from "@/components/Forms/NoteDataForm";
 
 export default {

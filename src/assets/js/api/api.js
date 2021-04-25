@@ -1,6 +1,7 @@
 import { http } from "@/assets/js/http";
 
 export default {
+  // Notes
   getNotes() {
     return http.get("/notes");
   },
@@ -15,5 +16,10 @@ export default {
   },
   updateNote(id, data) {
     return http.put(`/notes/${id}`, data);
+  },
+
+  // Auth
+  loginUser(data) {
+    return http.post("/auth/login", data);
   },
 };

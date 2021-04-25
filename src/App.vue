@@ -1,19 +1,28 @@
 <template>
-  <v-app>
-    <the-header />
-    <v-main>
-      <router-view />
-    </v-main>
-  </v-app>
+  <default-layout v-if="isAuthorized" />
+  <unauthorized-layout v-else />
 </template>
 
 <script>
-import TheHeader from "@/components/Header/TheHeader";
+import DefaultLayout from "@/layouts/default";
+import UnauthorizedLayout from "@/layouts/unauthorized";
 
 export default {
   name: "App",
   components: {
-    TheHeader,
+    DefaultLayout,
+    UnauthorizedLayout,
+  },
+  computed: {
+    isAuthorized() {
+      return this.$store.getters["user/userAuthStatus"];
+    },
+  },
+  mounted() {
+    const token = this.$cookies.get("token");
+    if (token) {
+      this.$store.dispatch("user/setUserState", token);
+    }
   },
 };
 </script>
