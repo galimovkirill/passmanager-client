@@ -1,7 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import cookies from "vue-cookies";
-import auth from "@/middleware/auth";
 
 Vue.use(VueRouter);
 
@@ -30,8 +29,11 @@ const routes = [
     path: "/login",
     name: "Login",
     component: () => import("../views/Login"),
-    meta: {
-      middleware: [auth],
+    beforeEnter: (to, from, next) => {
+      if (cookies.get("token")) {
+        next({ name: "Home" });
+      }
+      next();
     },
   },
 ];
